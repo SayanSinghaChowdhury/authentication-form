@@ -1,3 +1,4 @@
+import Register from "@/components/Register";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/shadcnui/card";
 
 const page = () => {
@@ -11,7 +12,7 @@ const page = () => {
           <CardTitle className="text-2xl font-semibold text-center">Register</CardTitle>
           </CardHeader>
         <CardContent className="grid place-items-center">
-          {/* <Login/> */}
+         <Register/>
         </CardContent>
       </Card>
 

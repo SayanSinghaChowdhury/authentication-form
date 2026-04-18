@@ -1,3 +1,4 @@
+import Login from "@/components/Login";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/shadcnui/card";
 import { Metadata } from "next";
 
@@ -17,7 +18,7 @@ const page = () => {
           <CardTitle className="text-2xl font-semibold text-center">Login</CardTitle>
           </CardHeader>
         <CardContent className="grid place-items-center">
-          {/* <Login/> */}
+          <Login/>
         </CardContent>
       </Card>
 

@@ -1,40 +1,58 @@
-"use client";
+"use client"
 
-import { loginSchema, LoginSchemaType } from "@/lib/zodSchema";
+import { registerSchema, RegisterSchemaType } from "@/lib/zodSchema";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderIcon, LogsIcon } from "lucide-react";
+import { LoaderIcon, SendHorizonal } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "./shadcnui/button";
 import { Field, FieldError, FieldLabel } from "./shadcnui/field";
 import { Input } from "./shadcnui/input";
 
-
-const Login = () => {
-
-    const { handleSubmit ,reset, control, formState:{isSubmitting} }=useForm({
-        resolver:zodResolver(loginSchema),
-
+const Register = () => {
+    const { reset, handleSubmit,control,formState:{isSubmitting}} = useForm({
+        resolver:zodResolver(registerSchema),
         defaultValues:{
+            name:"",
             email:"",
-            password:""
+            password:"",
+            
         },
-
         mode:"all",
-    })
-    
-    const loginHandle = async(lData:LoginSchemaType)=>{
-        await new Promise<void>((l)=>setTimeout(l,1000))
 
-        console.log(lData);
+    })
+
+    const registerHandel = async(rData:RegisterSchemaType)=>{
+        await new Promise <void>((r)=> setTimeout(r,1000))
+
+        console.log(rData);
 
         reset()
         
 
-
     }
-
     return (
-<form className="grid place-items-center w-full gap-4" onClick={handleSubmit(loginHandle)}>
+ <form className="grid place-items-center w-full gap-4" onClick={handleSubmit(registerHandel)}>
+
+  <Controller
+  name="name"
+  control={control}
+  render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+      <Input 
+        {...field}
+        id={field.name}
+        type="email"
+        aria-invalid={fieldState.invalid}
+        placeholder="Enter your Name"
+        autoComplete="email"
+      />
+     
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )}
+/>
 
  <Controller
   name="email"
@@ -80,8 +98,12 @@ const Login = () => {
 />
   
    <Button type="submit"  className={"bg-taupe-200 w-full mt-2 hover:bg-taupe-100"}>
-  {
+  {/* {
     isSubmitting ? <> <LoaderIcon className="animate-spin mr-2"/>Processing...</>:<><LogsIcon/>  Login</> 
+  } */}
+
+  {
+    isSubmitting ? <><LoaderIcon className="animate-spin mr-2"/>Processing...</> :<><SendHorizonal className="animate-pulse mr-2"/>Register</>
   }
   </Button>
 
@@ -91,4 +113,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default Register;

@@ -1,0 +1,5 @@
+{
+    "editor.inlineSuggest.syntaxHighlightingEnabled": false,
+    "editor.inlineSuggest.edits.showLongDistanceHint": false,
+    "editor.inlineSuggest.edits.allowCodeShifting": "never"
+}

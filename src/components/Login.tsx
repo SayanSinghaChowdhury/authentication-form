@@ -1,15 +1,22 @@
 "use client";
 
+import { registerAtom } from "@/lib/atoms";
 import { loginSchema, LoginSchemaType } from "@/lib/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtomValue } from "jotai";
 import { LoaderIcon, LogsIcon } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Button } from "./shadcnui/button";
 import { Field, FieldError, FieldLabel } from "./shadcnui/field";
 import { Input } from "./shadcnui/input";
 
 
 const Login = () => {
+
+  const rData = useAtomValue(registerAtom)
+
+  
 
     const { handleSubmit ,reset, control, formState:{isSubmitting} }=useForm({
         resolver:zodResolver(loginSchema),
@@ -25,7 +32,52 @@ const Login = () => {
     const loginHandle = async(lData:LoginSchemaType)=>{
         await new Promise<void>((l)=>setTimeout(l,1000))
 
-        console.log(lData);
+      // console.log(rData);
+
+      // console.log(lData);
+
+
+      if (lData.email === rData.email && lData.password === rData.password) {
+        toast.success(`Login Successful ${rData.name}`)
+
+
+        reset()
+
+
+        
+      } else {
+        if (lData.email !== rData.email && lData.password !== rData.password){
+
+          toast.error("Incorrect email & password")
+
+          reset()
+
+
+        }
+
+
+        if(lData.email !== rData.email){
+
+          
+           toast.error("Incorrect email. Please try again.")
+
+           reset()
+
+
+        }
+
+        if ( lData.password !== rData.password) {
+
+            toast.error("Incorrect password. Please try again.")
+
+            reset()
+          
+        }
+        
+      }
+
+       
+        
 
         reset()
         

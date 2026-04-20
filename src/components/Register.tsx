@@ -2,14 +2,24 @@
 
 import { registerSchema, RegisterSchemaType } from "@/lib/zodSchema";
 
+import { registerAtom } from "@/lib/atoms";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSetAtom } from "jotai";
 import { LoaderIcon, SendHorizonal } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { Button } from "./shadcnui/button";
 import { Field, FieldError, FieldLabel } from "./shadcnui/field";
 import { Input } from "./shadcnui/input";
 
 const Register = () => {
+ const setRegister=useSetAtom(registerAtom)
+
+ const {push}=useRouter()
+
+  
+
     const { reset, handleSubmit,control,formState:{isSubmitting}} = useForm({
         resolver:zodResolver(registerSchema),
         defaultValues:{
@@ -25,9 +35,27 @@ const Register = () => {
     const registerHandel = async(rData:RegisterSchemaType)=>{
         await new Promise <void>((r)=> setTimeout(r,1000))
 
-        console.log(rData);
+        
 
-        reset()
+       
+
+        setRegister(rData)
+
+        toast.success("Register Successful")
+
+          reset();
+
+          push("/")
+
+          
+
+
+
+        
+
+        
+
+      
         
 
     }
@@ -46,7 +74,7 @@ const Register = () => {
         type="email"
         aria-invalid={fieldState.invalid}
         placeholder="Enter your Name"
-        autoComplete="email"
+        autoComplete="name"
       />
      
       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

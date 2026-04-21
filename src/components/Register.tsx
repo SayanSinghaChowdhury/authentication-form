@@ -126,9 +126,7 @@ const Register = () => {
 />
   
    <Button type="submit"  className={"w-full mt-2  bg-amber-600 hover:bg-amber-600/30"}>
-  {/* {
-    isSubmitting ? <> <LoaderIcon className="animate-spin mr-2"/>Processing...</>:<><LogsIcon/>  Login</> 
-  } */}
+ 
 
   {
     isSubmitting ? <><LoaderIcon className="animate-spin mr-2"/>Processing...</> :<><SendHorizonal className="animate-pulse mr-2"/>Register</>
